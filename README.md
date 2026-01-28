@@ -1,7 +1,5 @@
 # Task Manager
 
----
-
 ## About
 A task management system where teams can create, assign, and track tasks with categories and collaboration features.
 
