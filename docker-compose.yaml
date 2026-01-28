@@ -1,0 +1,13 @@
+services:
+  taskmanager-db:
+    image: postgres:18-alpine3.21
+    container_name: taskmanager-db
+    environment:
+      - POSTGRES_USER=shoyu
+      - POSTGRES_PASSWORD=shoyu_secret
+      - POSTGRES_DB=taskmanager_db
+    volumes:
+      - ./docker-taskmanager-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
