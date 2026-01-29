@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.shoyu.taskmanager.exception.InvalidTaskException;
+import com.shoyu.taskmanager.exception.TaskNotFoundException;
 import com.shoyu.taskmanager.exception.UserAlreadyExistsException;
 import com.shoyu.taskmanager.exception.UserNotFoundException;
 
@@ -37,5 +39,29 @@ public class GlobalExceptionHandler {
             .build();            
             
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTaskNotFound(TaskNotFoundException ex, HttpServletRequest request) {
+        ErrorResponse error = ErrorResponse.builder()
+            .status(HttpStatus.NOT_FOUND.value())
+            .message(ex.getMessage())
+            .timestamp(LocalDateTime.now())
+            .path(request.getRequestURI())
+            .build();            
+            
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(InvalidTaskException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidTask(InvalidTaskException ex, HttpServletRequest request) {
+        ErrorResponse error = ErrorResponse.builder()
+            .status(HttpStatus.BAD_REQUEST.value())
+            .message(ex.getMessage())
+            .timestamp(LocalDateTime.now())
+            .path(request.getRequestURI())
+            .build();            
+            
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
