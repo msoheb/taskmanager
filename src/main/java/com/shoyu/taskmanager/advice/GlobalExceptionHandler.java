@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.shoyu.taskmanager.exception.UserAlreadyExistsException;
+import com.shoyu.taskmanager.exception.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,5 +25,17 @@ public class GlobalExceptionHandler {
             .build();            
             
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex, HttpServletRequest request) {
+        ErrorResponse error = ErrorResponse.builder()
+            .status(HttpStatus.NOT_FOUND.value())
+            .message(ex.getMessage())
+            .timestamp(LocalDateTime.now())
+            .path(request.getRequestURI())
+            .build();            
+            
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.shoyu.taskmanager.entity.User;
 import com.shoyu.taskmanager.exception.UserAlreadyExistsException;
+import com.shoyu.taskmanager.exception.UserNotFoundException;
 import com.shoyu.taskmanager.repository.UserRepository;
 
 @Service
@@ -28,16 +29,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + id));
     }
 
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
     }
 
-    public Optional<User> getUserByUsername(String username) {
-       return userRepository.findByUsername(username);
+    public User getUserByUsername(String username) {
+       return userRepository.findByUsername(username)
+            .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
     }
 
     public List<User> getAllUsers() {
