@@ -58,7 +58,6 @@ public class CategoryService {
 
     }
 
-
     public void deleteCategory(Long id) {
 
         Category savedCategory = categoryRepository.findById(id)
