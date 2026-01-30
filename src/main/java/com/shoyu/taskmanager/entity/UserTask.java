@@ -24,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserTask {
+public class UserTask extends Auditable{
     
     @EmbeddedId
     private UserTaskId id;

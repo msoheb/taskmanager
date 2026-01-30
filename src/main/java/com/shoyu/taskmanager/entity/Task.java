@@ -33,7 +33,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Task {
+public class Task extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

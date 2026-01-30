@@ -30,7 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class User {
+public class User extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
